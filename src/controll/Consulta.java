@@ -48,10 +48,10 @@ public class Consulta {
 
             BufferedImage b = ImageIO.read(entrada);
 
-//            Imagem.exibir(b);
-//            String captcha = JOptionPane.showInputDialog("Entre com o captcha:");
+//          Imagem.exibir(b);
+//          String captcha = JOptionPane.showInputDialog("Entre com o captcha:");
             String captcha = Captcha.captchaToString(b);
-//            System.out.println(captcha);
+//          System.out.println(captcha);
 
             HttpPost requisicao2 = new HttpPost("http://www.receita.fazenda.gov.br/Aplicacoes/ATCTA/CPF/ConsultaPublicaExibir.asp");
 
