@@ -15,8 +15,16 @@ public class Captcha {
         } catch (IOException ex) {
            
         }
-        BufferedImage img = Filtro.threshold(Filtro.filtroDoNivaldo(image.getSubimage(12, 8, 163, 30)), 128);
+        BufferedImage subimage = image.getSubimage(12, 8, 163, 30);
+        Imagem.exibir(subimage);
+        BufferedImage img = Filtro.threshold(subimage, 128);
+        Imagem.exibir(img);
+        BufferedImage filtroDoNivaldo = Filtro.filtroDoNivaldo(img);
+        Imagem.exibir(filtroDoNivaldo);
         List<BufferedImage> segmentos = Imagem.segmentar(img, 6);
+        for(BufferedImage x: segmentos){
+            Imagem.exibir(x);
+        }
         String str = null;
         Tesseract instance = Tesseract.getInstance();
 
