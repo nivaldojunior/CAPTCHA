@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -48,10 +49,10 @@ public class Consulta {
 
             BufferedImage b = ImageIO.read(entrada);
 
-//          Imagem.exibir(b);
+            Imagem.exibir(b);
 //          String captcha = JOptionPane.showInputDialog("Entre com o captcha:");
             String captcha = Captcha.captchaToString(b);
-//          System.out.println(captcha);
+            System.out.println("Tentativa: " + captcha);
 
             HttpPost requisicao2 = new HttpPost("http://www.receita.fazenda.gov.br/Aplicacoes/ATCTA/CPF/ConsultaPublicaExibir.asp");
 
@@ -81,11 +82,10 @@ public class Consulta {
 
             Document parse = Jsoup.parse(str.toString(), "ISO-8859-1");
 
-            Element element;
+            Element element = null;
 
             if ((element = parse.getElementById("idMensagemErro")) != null) {
-                //return element.text();
-                return null;
+                return element.text();
             } else {
                 return parse.getElementsByClass("clConteudoEsquerda").text();
             }
