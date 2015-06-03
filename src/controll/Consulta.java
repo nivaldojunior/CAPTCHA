@@ -29,7 +29,7 @@ import org.jsoup.nodes.Element;
 
 public class Consulta {
 
-    public static String consultar(String cpf) {
+    public static String consultar(String cpf, String nasc) {
 
         try (CloseableHttpClient httpClient = (HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy())).setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy()).build()) {
 
@@ -58,9 +58,12 @@ public class Consulta {
 
             List<NameValuePair> nameValuePairs = new ArrayList<>();
 
-            nameValuePairs.add(new BasicNameValuePair("txtCPF", cpf));
             nameValuePairs.add(new BasicNameValuePair("txtTexto_captcha_serpro_gov_br", captcha));
-            nameValuePairs.add(new BasicNameValuePair("Enviar", "Consultar"));
+            nameValuePairs.add(new BasicNameValuePair("tempTxtCPF", cpf));
+            nameValuePairs.add(new BasicNameValuePair("tempTxtNascimento", nasc));
+            nameValuePairs.add(new BasicNameValuePair("temptxtToken_captcha_serpro_gov_br", ""));
+            nameValuePairs.add(new BasicNameValuePair("temptxtTexto_captcha_serpro_gov_br", captcha));
+            
 
             UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairs, "ISO-8859-1");
 

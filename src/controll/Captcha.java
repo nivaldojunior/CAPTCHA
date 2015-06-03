@@ -17,19 +17,20 @@ public class Captcha {
         }
         BufferedImage subimage = image.getSubimage(12, 8, 163, 30);
         Imagem.exibir(subimage);
-        BufferedImage img = Filtro.threshold(subimage, 128);
-        Imagem.exibir(img);
-        BufferedImage filtroDoNivaldo = Filtro.filtroDoNivaldo(img);
+        //BufferedImage img = Filtro.threshold(subimage, 128);
+        //Imagem.exibir(img);
+        BufferedImage filtroDoNivaldo = Filtro.filtroDoNivaldo(subimage);
         Imagem.exibir(filtroDoNivaldo);
-        List<BufferedImage> segmentos = Imagem.segmentar(img, 6);
+        List<BufferedImage> segmentos = Imagem.segmentar(filtroDoNivaldo, 6);
         for(BufferedImage x: segmentos){
             Imagem.exibir(x);
         }
         String str = null;
         Tesseract instance = Tesseract.getInstance();
+        instance.setTessVariable("tessedit_char_whitelist", "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
         try {
-            str = instance.doOCR(img).trim().toLowerCase().replaceAll("[\\s\\W_]+", "");
+            str = instance.doOCR(filtroDoNivaldo).trim().toLowerCase();
         } catch (TesseractException ex) {
             
         }
@@ -40,9 +41,9 @@ public class Captcha {
             StringBuilder str2 = new StringBuilder();
             for (BufferedImage bi : segmentos) {
                 try {
-                    str2.append(instance.doOCR(bi).trim().toLowerCase().replaceAll("[\\s\\W_]+", ""));
+                    str2.append(instance.doOCR(bi).trim().toLowerCase());
                 } catch (TesseractException ex) {
-                    str2.append("0");
+                    
                 }
             }
             return str2.toString();

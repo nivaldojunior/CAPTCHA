@@ -31,11 +31,11 @@ public class Centroide {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, out.getWidth(), out.getHeight());
 
-        for (Pixel p : pixels) {
+        pixels.stream().forEach((p) -> {
             int x = (int) (p.getPonto().getX() - min.getX());
             int y = (int) (p.getPonto().getY() - min.getY());
             out.setRGB(x, y, p.getCor().getRGB());
-        }
+        });
 
         return out;
     }
@@ -49,6 +49,7 @@ public class Centroide {
             cont++;
         }
         centroide.getPonto().setLocation(centroide.getPonto().getX() / cont, centroide.getPonto().getY() / cont);
+        centroide.setCor(Color.red);
         return centroide;
     }
 

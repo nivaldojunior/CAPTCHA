@@ -1,15 +1,12 @@
 package view;
 
 import controll.Consulta;
-import java.util.Scanner;
 
 public class Principal {
 
     public static void main(String args[]) {
 
-        System.out.print("Entre com o cpf: ");
-        Scanner sc = new Scanner(System.in);
-        String consultar = Consulta.consultar(sc.nextLine());
+        String consultar = Consulta.consultar("11180256603", "21/04/1993");
         if (consultar != null) {
             System.out.println(consultar);
         } else {
